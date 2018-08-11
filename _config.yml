@@ -12,7 +12,7 @@ github_repo: "https://github.com/handanshenxian/handanshenxian.github.io.git" # 
 # Sidebar settings
 sidebar: true                           # whether or not using Sidebar.
 sidebar-about-description: "给自己定个小目标,先赚它一个亿!"
-sidebar-avatar: /img/about-BY-gentle.jpg      # use absolute URL, seeing it's used in both `/` and `/about/`
+sidebar-avatar: /img/self.jpg      # use absolute URL, seeing it's used in both `/` and `/about/`
 
 
 
