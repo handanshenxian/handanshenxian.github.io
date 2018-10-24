@@ -4,7 +4,7 @@ title:      演讲presenting to win
 subtitle:   presenting
 date:       2018-10-23
 author:     sheazhang
-header-img: img/post-shea-present.jpeg
+header-img: img/post-shea-present.jpg
 catalog: true
 tags:
     - Resource
