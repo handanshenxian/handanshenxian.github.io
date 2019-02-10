@@ -1,0 +1,662 @@
+layout:     post
+title:      学习解决痛苦!
+subtitle:   Only the action can really overcome anxiety!
+date:       2019-02-10
+author:     sheazhang
+header-img: img/post-bg-unix-linux.jpg
+catalog: true
+tags:
+    - python
+
+> just有目标的行动才能解决焦虑，确实是至理名言
+
+# python基础
+
+## 一：python特性and介绍
+
+### 1. python历史
+
+- 2.0:源码重复，冗长；
+  - (英文字母，特殊字符，数字)
+  - 中文报错，解决方法：文件首行设置字符集编码 -*- encoding:utf-8 -*-
+  - 编码格式：ASCII
+- 3.0:源码规范，简单；
+  - (中英文都可以)
+  - 编码格式：utf-8
+
+### 2. 编程语言划分
+
+**编译器**
+
+是把源程序的每一条语句都编译成机器语言,并保存成二进制文件,这样运行时计算机可以直接以机器语言来运行此程序,速度很快; 
+
+**解释器**
+
+是指在执行程序时,才一条一条的解释成机器语言给计算机来执行,所以运行速度是不如编译后的程序运行的快的. 
+
+计算机不能直接认识并执行我们写的语句,它只能认识机器语言(是二进制的形式)
+
+
+
+1. 编译型和解释型
+
+| 类型   | 优点                                             | 缺点                   | 备注                                                         |
+| :----- | ------------------------------------------------ | ---------------------- | ------------------------------------------------------------ |
+| 编译型 | 执行效率高                                       | 开发效率低，不能跨平台 | 将代码一次性编译成二进制然后执行；例如：c，c++               |
+| 解释型 | 开发效率高(修改代码的时候直接可修改)，可以跨平台 | 执行效率慢             | 代码逐行解释逐行运行，每次运行的时候都要解释一遍；例如：python；php |
+
+![](https://ws2.sinaimg.cn/large/006tNc79ly1fzzx9irsadj30ww0kqt9v.jpg)
+
+![](https://ws2.sinaimg.cn/large/006tNc79ly1fzzxb47hwyj30zs0lyq4c.jpg)
+
+
+
+2. 动态语言和静态语言
+   - （1）动态类型语言：动态类型语言是指在运行期间才去做数据类型检查的语言，也就是说，**在用动态类型的语言编程时，永远也不用给任何变量指定数据类型，该语言会在你第一次赋值给变量时，在内部将数据类型记录下来**。Python和Ruby就是一种典型的动态类型语言，其他的各种脚本语言如VBScript也多少属于动态类型语言。
+   - （2）静态类型语言：静态类型语言与动态类型语言刚好相反，它的数据类型是在编译期间检查的，**也就是说在写程序时要声明所有变量的数据类型，**C/C++是静态类型语言的典型代表，其他的静态类型语言还有C#、JAVA等。
+3. 强类型定义语言和弱类型定义语言
+   - （1）强类型定义语言：强制数据类型定义的语言。也就是说，**一旦一个变量被指定了某个数据类型，如果不经过强制转换，那么它就永远是这个数据类型了**。举个例子：如果你定义了一个整型变量a,那么程序根本不可能将a当作字符串类型处理。强类型定义语言是类型安全的语言。
+   - （2）弱类型定义语言：数据类型可以被忽略的语言。它与强类型定义语言相反, **一个变量可以赋不同数据类型的值。**
+   - 强类型定义语言在速度上可能略逊色于弱类型定义语言，但是强类型定义语言带来的严谨性能够有效的避免许多错误。另外，“这门语言是不是动态语言”与“这门语言是否类型安全”之间是完全没有联系的
+
+**python是一门动态解释性的强类型定义语言。**
+
+### 3. python特点
+
+
+
+| 优点                             | 缺点                                         |
+| -------------------------------- | -------------------------------------------- |
+| 开发效率高，有N个第三方库        | 速度慢，比c语言或者c++要慢，但是肉眼无法感知 |
+| 高级语言，无需考虑底层和内存级别 | 代码不能加密， 它的源码都是以名文形式存放的  |
+| 可移植性，不同平台上运行         | 线程不能利用多CPU问题，                      |
+| 可扩展性，可以加入c++等程序      |                                              |
+| 可嵌入性， 可嵌入你的C/C++程序   |                                              |
+
+**备注：**
+
+线程不能利用多CPU问题，GIL即全局解释器锁（Global Interpreter Lock），是[计算机程序设计语言](http://zh.wikipedia.org/wiki/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E8%AF%AD%E8%A8%80)[解释器](http://zh.wikipedia.org/wiki/%E8%A7%A3%E9%87%8A%E5%99%A8)用于[同步](http://zh.wikipedia.org/wiki/%E5%90%8C%E6%AD%A5)[线程](http://zh.wikipedia.org/wiki/%E7%BA%BF%E7%A8%8B)的工具，**使得任何时刻仅有一个线程在执行**，Python的线程是操作系统的原生线程。在Linux上为pthread，在Windows上为Win thread，完全由操作系统调度线程的执行。**一个python解释器进程内有一条主线程，以及多条用户程序的执行线程。即使在多核CPU平台上，由于GIL的存在，所以禁止多线程的并行执行**。关于这个问题的折衷解决方法，我们在以后线程和进程章节里再进行详细探讨。
+
+### 4. python种类
+
+**CPython**
+
+这个解释器是用C语言开发的，所以叫CPython。在命令行下运行`python`就是启动CPython解释器。
+
+**IPython**
+
+IPython是基于CPython之上的一个交互式解释器，也就是说，IPython只是在交互方式上有所增强，但是执行Python代码的功能和CPython是完全一样的。
+
+CPython用`>>>`作为提示符，而IPython用`In [``序号``]:`作为提示符。
+
+**PyPy**
+
+它的目标是执行速度。PyPy采用[JIT技术](http://en.wikipedia.org/wiki/Just-in-time_compilation)，对Python代码进行动态编译（注意不是解释），所以可以显著提高Python代码的执行速度。
+
+绝大部分Python代码都可以在PyPy下运行，但是PyPy和CPython有一些是不同的，这就导致相同的Python代码在两种解释器下执行可能会有不同的结果。如果你的代码要放到PyPy下执行，就需要了解[PyPy和CPython的不同点](http://pypy.readthedocs.org/en/latest/cpython_differences.html)。
+
+**Jython**
+
+Jython是运行在Java平台上的Python解释器，可以直接把Python代码编译成Java字节码执行。
+
+**IronPython**
+
+IronPython是运行在微软.Net平台上的Python解释器，可以直接把Python代码编译成.Net的字节码。
+
+![](https://ws1.sinaimg.cn/large/006tNc79ly1fzzydjcw5pj31ij0u0n4m.jpg)
+
+## 二：安装测试
+
+### 1. windows安装Python
+
+（手动添加环境变量）以2.7版本举例：
+
+1. 下载安装包
+
+https://www.python.org/downloads/
+
+2. 安装    
+
+默认安装路径：C:\python27
+
+3. 配置环境变量 
+
+【右键计算机】--》【属性】--》【高级系统设置】--》【高级】--》【环境变量】--》【在第二个内容框中找到 变量名为Path 的一行，双击】 --> 【Python安装目录追加到变值值中，用 ； 分割 如：原来的值; C:\python27，切记前面有分号
+
+### 2. linux安装
+
+原装，更新
+
+## 三：基础初识
+
+### 1. hello world
+
+![](https://ws3.sinaimg.cn/large/006tNc79ly1g000ggeydrj30a201sa9y.jpg)
+
+ ### 2. 解释器
+
+``` python 1.py```
+
+明确的指出 1.py 脚本由 python 解释器来执行。
+
+如果想要类似于执行shell脚本一样执行python脚本，例： `./1.py `，那么就需要在 1.py 文件的头部<u>**指定解释器**</u>，如下：
+
+```python
+#!/usr/bin/env python
+print "hello,world"
+```
+
+如此一来，执行： .`/1.py` 即可。
+
+### 3. 内容编码
+
+- python2解释器在加载 .py 文件中的代码时，会对内容进行编码（默认ascill）,而python3对内容进行编码的默认为utf-8
+
+- ASCII:其最多只能用 8 位来表示（一个字节），即：2**8 = 256，所以，ASCII码最多只能表示 256 个符号。
+
+- 需要新出一种可以代表所有字符和符号的编码，即：Unicode,统一码、万国码、单一码）是一种在计算机上使用的字符编码。Unicode 是为了解决传统的字符编码方案的局限而产生的，它为每种语言中的每个字符设定了统一并且唯一的二进制编码
+
+- ```python
+  #!/usr/bin/env python
+  # -*- coding: utf-8 -*-
+  ```
+
+  `
+
+### 4. 注释
+
+- 当行注释：# 被注释内容
+- 多行注释：'''被注释内容'''，或者"""被注释内容"""
+
+### 5. 变量
+
+**变量：**
+
+把程序运行的**<u>中间结果临时</u>**的存在内存里，以便后续的代码调用。 
+
+程序中无处不在，想要暂存一些数据，经常使用的数据。
+
+![](https://ws1.sinaimg.cn/large/006tNc79ly1g002xgsmwtj308w03swef.jpg)
+
+结果：(1, 2, 1) 
+
+
+
+1. 声明变量
+   - 变量的作用：昵称，其代指内存里某个地址中保存的内容
+2. 变量定义的规则
+   - 变量名只能是 字母、数字或下划线的任意组合
+   - 变量名的第一个字符不能是数字
+   - 以下关键字不能声明为变量名
+     ['and', 'as', 'assert', 'break', 'class', 'continue', 'def', 'del', 'elif', 'else', 'except', 'exec', 'finally', 'for', 'from', 'global', 'if', 'import', 'in', 'is', 'lambda', 'not', 'or', 'pass', 'print', 'raise', 'return', 'try', 'while', 'with', 'yield']
+3. 推荐定义方式
+   - 变量的定义要具有可描述性，清晰；
+4. 变量的赋值
+5. 定义变量糟糕的方式举例
+   1. 变量名为中文、拼音
+   2. 变量名过长
+   3. 变量名词不达意
+6. 举例：
+
+![](https://ws2.sinaimg.cn/large/006tNc79ly1g002mxribnj30d009odg4.jpg)
+
+### 6. 常量
+
+常量：
+
+- 在程序运行过程中不会改变的量
+- 约定俗成用变量名全部大写代表常量（AGE_OF_OLDBOY = 56）
+- 设置不变的量，在文件的最上面。
+
+### 7. 数据类型
+
+1. 计算机无法区分数字和字符区别，需要使用数据类型来进行区分；
+
+2. 整数类型（int）
+
+   - int（整型）
+     - 在32位机器上，整数的位数为32位，取值范围为-2^31～2^31-1，即-2147483648～2147483647
+     - 在64位系统上，整数的位数为64位，取值范围为-2^63～2^63-1，即-9223372036854775808～9223372036854775807
+   - long（长整型）
+     - 跟C语言不同，Python的长整数没有指定位宽，即：Python没有限制长整数数值的大小，但实际上由于机器内存有限，我们使用的长整数数值不可能无限大。
+     - 注意：在Python3里不再有long类型了，全都是int
+
+   ```python
+   >>> a= 2**64
+   >>> type(a)  #type()是查看数据类型的方法
+   <type 'long'>
+   ```
+
+3. Float:浮点数，复数
+
+4. 字符串类型（str）
+
+   - 加了引号的字符都被认为是字符串;
+
+   - 单引号，双引号 没有区别（msg = "My name is Alex , I'm 22 years old!"）
+
+   - 三引号：作用就是多行字符串必须用多引号
+
+   - 字符串可以与数字相乘
+
+   - 字符串拼接；
+
+     - 字符串只能进行 相加和相乘 
+
+     - 字符串的拼接只能是双方都是字符串，不能跟数字或其它类型拼接
+
+     - ```python
+       >>> name = 'shea'
+       >>> time = '10'
+       >>> times = 20
+       >>> name + time
+       'shea10'
+       >>> name + times
+       Traceback (most recent call last):
+       File "<stdin>", line 1, in <module>
+       TypeError: cannot concatenate 'str' and 'int' objects
+       >>> type(time),type(times)
+       (<type 'str'>, <type 'int'>)
+       ```
+
+5. 布尔值（True，False）
+
+   - 逻辑运算的判断
+
+   - ```python
+     >>> a=3
+     >>> b=5
+     >>> a > b #不成立就是False,即假
+     False
+     ```
+
+### 8. 程序交互
+
+1. 和用户之间的交互
+
+2. input出来的数据都是字符串类型
+
+3. ```python
+   name = input("What is your name?")
+   age = input("How old are you?")
+   hometown = input("Where is your hometown?")
+   
+   print("Hello ",name , "your are ", age , "years old, you came from",hometown)
+   ```
+
+4. 举例：
+
+```python
+name = input("姓名: ") 
+报错：
+NameError: name 'shea' is not defined
+修改：
+name = raw_input("姓名: ") 
+```
+
+原因：
+
+由于版本不同造成的语法错误,在python3中,输入可以使用input,但如果你的版本是python2,那么此时input就得改成raw_input,否则你输入数据会被当做代码来执行
+
+```python
+name = raw_input("姓名: ")
+age = raw_input("年龄: ")
+home = raw_input("hometown: ")
+msg = "i am name,i am age, i come from home"
+print(msg)
+
+报错：
+i am name,i am age, i come from home
+解决：全部定义为字符串类型
+替换：msg = "i am", name , "i am", age , "i come from" ,home
+('i am', 'shea', 'i am', '23', 'i come from', 'hebei')
+
+或者： 字符串类型使用+拼接
+msg = "i am" + name + "i am" + age + "i come from" + home
+i amsheai am23i come fromhebei
+```
+
+原因：
+
+- 字符串类型之间需要使用+来进行拼接；
+- msg如果使用“”引起来的话，意味着整体是一个字符串，print不会打印其中变量
+
+### 9. 格式化输出
+
+1. 只需要把要打印的格式先准备好， 由于里面的 一些信息是需要用户输入的，没办法预设知道，因此<u>**可以先放置个占位符**，再把字符串里的占位符与外部的变量做个映射关系就好啦</u>
+
+```python
+name = raw_input("Name:")
+age = int(raw_input("Age:"))
+job = raw_input("Job:")
+hobbie = raw_input("Hobbie:")
+
+info = '''
+Name  : %s
+Age   : %d
+job   : %s
+Hobbie: %s
+'''%(name,age,job,hobbie) 
+# 这行的 % 号就是把前面的字符串Name 与拓号 后面的 变量name 关联起来
+
+print(info)
+```
+
+2. 知识点：
+
+   - %s是代表字符串占位符
+
+   - %d是数字占位符
+
+   - 格式转换：
+
+     - 字符串转换为数字：age = int(input("Age:"))
+     - 数字转换为字符串：str( yourStr )
+
+   - 对%进行转译：
+
+     ```python
+     msg = "我是%s,年龄%d,目前学习进度为80%"%('金鑫',18)
+     print(msg)
+     报错：SyntaxError: EOL while scanning string literal
+     解决：第一个%是对第二个%的转译
+     msg = "我是%s,年龄%d,目前学习进度为80%%"%('金鑫',18)
+     解决：通常这种错误就是代码里面的引号错误。检查赋值
+     语法错误：检测到非法结束符
+     ```
+
+### 10. 基本运算符
+
+​	
+
+
+
+1. 运算符
+
+2. 算数运算
+
+   - 假设变量：a=10，b=20
+   - ![](https://ws2.sinaimg.cn/large/006tNc79ly1g017bsuimmj30l706kdg5.jpg)
+
+3. 比较运算
+
+   - 假设变量：a=10，b=20
+   - ![](https://ws1.sinaimg.cn/large/006tNc79ly1g017cmqw3bj30lj07o74p.jpg)
+
+4. 赋值运算
+
+   - 假设变量：a=10，b=20
+   - ![](https://ws3.sinaimg.cn/large/006tNc79ly1g017da1g6yj30ld07l3yt.jpg)
+
+5. 逻辑运算
+
+   - ![](https://ws4.sinaimg.cn/large/006tNc79ly1g017du9it9j30lb036mx9.jpg)
+   - **在没有()的情况下not 优先级高于 and，and优先级高于or，即优先级关系为( )>not>and>or**
+   - x or y , x为真，值就是x，x为假，值是y；
+   - x and y, x为真，值是y,     x为假，值是x。
+
+   **举例：**
+
+   ```python
+   print(3>4 or 4<3 and 1==1)     # False
+   print(1 < 2 and 3 < 4 or 1>2 )  # True
+   print(2 > 1 and 3 < 4 or 4 > 5 and 2 < 1)  # True
+   print(1 > 2 and 3 < 4 or 4 > 5 and 2 > 1 or 9 < 8)  # False
+   print(1 > 1 and 3 < 4 or 4 > 5 and 2 > 1 and 9 > 8 or 7 < 6)  # False
+   print(not 2 > 1 and 3 < 4 or 4 > 5 and 2 > 1 and 9 > 8 or 7 < 6)  # False
+   # 以上展示的是两边都是比较运算
+   print(not 2 > 1)  # False
+   print(not 2 )   # False
+   # not 2  表示 False ，在数字比较的时候表示 0.
+   ```
+   ```python
+   print(1 or 3)   # 1
+   print(0 or 3)  # 3
+   print(2 or 8)   # 2
+   print(-2 or 3)  # -2
+   print(-2 and 3)  # 3
+   print(1 and 5)  # 5
+   print(0 and 6)  # 0
+   print(not 2 )   # False 
+   # 以上展示的是两边都是数字运算
+   
+   print(1 or 3 and 3>2 and 4 )   # 1
+   # 两边既有数字还有比较
+   
+   小补充：
+   print(bool(2))   # True
+   print(bool(-2))  # True
+   print(bool(0))   # False
+   #  int 转化成 bool 时，非零即 True.
+   
+   print(int(True))   # 1
+   print(int(False))  # 0
+   #  bool 转化成 int 时，True 为什么就转化成 1，因为 1 的效率高。
+   ```
+
+6. 成员运算
+
+   - ![](https://ws3.sinaimg.cn/large/006tNc79ly1g01msul68oj30n702zglp.jpg)
+
+   - 判断子元素是否在原字符串（字典，列表，集合，元组）中
+
+   - ```python
+     print('a' in 'bcvd')   # False
+     print('y' not in 'ofkjdslaf')   # True
+     ```
+
+7. Python运算符优先级
+
+   - 从最高到最低优先级的所有运算符
+
+| 运算符                   | 描述                                                   |
+| ------------------------ | ------------------------------------------------------ |
+| **                       | 指数 (最高优先级)                                      |
+| ~ + -                    | 按位翻转, 一元加号和减号 (最后两个的方法名为 +@ 和 -@) |
+| * / % //                 | 乘，除，取模和取整除                                   |
+| + -                      | 加法减法                                               |
+| >> <<                    | 右移，左移运算符                                       |
+| &                        | 位 'AND'                                               |
+| ^ \|                     | 位运算符                                               |
+| <=     <    >      >=    | 比较运算符                                             |
+| <>     ==      !=        | 等于运算符                                             |
+| = %= /= //= -= += *= **= | 赋值运算符                                             |
+| is      is not           | 身份运算符                                             |
+| in      not in           | 成员运算符                                             |
+| not    and     or        | 逻辑运算符                                             |
+
+### 11. 流程控制-if（if..else语句）
+
+1. 单分支
+
+   1. ```python
+      if 条件:
+          满足条件后要执行的代码
+      ```
+
+2. 双分支
+
+   ```python
+   """
+   if 条件:
+       满足条件执行代码
+   else:
+       if条件不满足就走这段
+   """
+   AgeOfOldboy = 48
+   
+   if AgeOfOldboy > 50 :
+       print("Too old, time to retire..")
+   else:
+       print("还能折腾几年!")
+   ```
+
+- 缩进
+
+  - 上面的if代码里，每个条件的下一行都缩进了4个空格，这是为什么呢？这就是Python的一大特色，强制缩进，目的是为了让程序知道，每段代码依赖哪个条件
+  - Python的缩进有以下几个原则:
+    - 顶级代码必须顶行写，即如果一行代码本身不依赖于任何条件，那它必须不能进行任何缩进
+    - 同一级别的代码，缩进必须一致
+    - 官方建议缩进用4个空格，当然你也可以用2个，如果你想被人笑话的话。
+
+
+3. 多分支
+
+   - ```python
+     if 条件:
+         满足条件执行代码
+     elif 条件:
+         上面的条件不满足就走这个
+     elif 条件:
+         上面的条件不满足就走这个
+     elif 条件:
+         上面的条件不满足就走这个    
+     else:
+         上面所有的条件不满足就走这段
+     ```
+
+   - 因为代码是从上到下依次判断，只要满足一个，就不会再往下走啦
+
+   - **注意：只要有else 就可以节省cpu，if.....elif ...是多选一，会把多的部分都执行一遍选择一个，但 if .....elif....else 和 if.....else 则是有一种满足，剩下的就不看了。**
+
+   - ```python
+     要求用户输入0-100的数字后，你能正确打印他的对应成绩
+     score = int(input("输入分数:"))
+     
+     if score > 100:
+         print("我擦，最高分才100...")
+     elif score >= 90:
+         print("A")
+     elif score >= 80:
+         print("B")
+     elif score >= 60:
+         print("C")
+     elif score >= 40:
+         print("D")
+     else:
+         print("太笨了...E")
+     ```
+
+
+
+### 12. 流程控制-while循环
+
+1. 基本循环
+
+   ```python
+   while 条件: 
+   
+   # 循环体
+   
+   # 如果条件为真，那么循环体则执行
+   
+   # 如果条件为假，那么循环体不执行
+   ```
+
+2. 循环中止语句 
+
+   - 循环的过程中，不想继续循环了，怎么中止掉？用到break 或 continue 语句
+     - break用于完全结束一个循环，跳出循环体执行循环后面的语句
+     - continue区别在于continue只是终止本次循环，接着还执行后面的循环，break则完全终止循环
+
+   **举例：break**
+
+   ```python
+   count = 0
+   while count <= 100 : #只要count<=100就不断执行下面的代码
+       print("loop ", count)
+       if count == 5:
+           break
+       count +=1 #每执行一次，就把count+1，要不然就变成死循环啦，因为count一直是0
+   
+   print("-----out of while loop ------")
+   ```
+
+   **举例：continue**
+
+   ```python
+   count = 0
+   while count <= 100 : 
+       count += 1
+       if count > 5 and count < 95: #只要count在6-94之间，就不走下面的print语句，直接进入下一次loop
+           continue 
+       print("loop ", count)
+   
+   print("-----out of while loop ------")
+   ```
+
+   - **注意：**
+
+   还有一种方式终止循环，改变条件。但如果改变的条件在中间的话，就不会立刻跳出循环，而是会执行完这一次的循环。
+
+   ```python
+   flag=True
+   count=0
+   while flag :
+       count += 1
+       if count > 5 and count < 95:
+           flag=False
+       print("loop ", count)
+   
+   print("-----out of while loop ------")
+   ```
+
+
+
+3. while ... else ..
+
+   - while 后面的else 作用是指，当while 循环正常执行完，中间没有被break 中止的话，就会执行else后面的语句
+
+   - ```python
+     count = 0
+     while count <= 5 :
+         count += 1
+         print("Loop",count)
+     
+     else:
+         print("循环正常执行完啦")
+     print("-----out of while loop ------")
+     ```
+
+   - 如果执行过程中被break啦，就不会执行else的语句啦，，，，所以说：else 可以用来检查程序中间是否被中断过。
+
+   - ```python
+     count = 0
+     while count <= 5 :
+         count += 1
+         if count == 3:break
+         print("Loop",count)
+     
+     else:
+         print("循环正常执行完啦")
+     print("-----out of while loop ------")
+     ```
+
+   - ### 注：for 循环的用法和 while 一致，也有 for .....else，也有 break 和 continue 等。
+
+
+
+
+
+
+
+## 广告时间到：剧终篇
+
+**在这个讲求套路的时代，你都有哪些套路可以传授与我的呢？**  
+**有的话方便的话 可以私信我，大家一起学习下吧。**
+
+**邮箱：**
+
+![](https://i.imgur.com/ZuFV0fE.jpg)
+
+**公众号:**
+
+**shea套路**  
+
+
+
+> 哈哈
+
+**不过很久没有更新过，以后同步更新吧。。。**
+
+**大家一起来学习。。ending**
